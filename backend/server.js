@@ -28,11 +28,36 @@ app.get("/api/summoner/:gameName/:tagLine", async (req, res) => {
 
     const summonerData = summonerResponse.data;
 
-    // Combine summoner data with level
+    // Fetch summoner level using summonerId
+    const levelResponse = await axios.get(
+      `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${summonerData.puuid}`,
+      {
+        headers: {
+          "X-Riot-Token": process.env.RIOT_API_KEY, // Riot API Key
+        },
+      }
+    );
+
+    const levelData = levelResponse.data;
+
+    // Fetch rank information using summonerId
+    const rankResponse = await axios.get(
+      `https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${levelData.id}`,
+      {
+        headers: {
+          "X-Riot-Token": process.env.RIOT_API_KEY, // Riot API Key
+        },
+      }
+    );
+
+    const rankData = rankResponse.data;
+
+    // Combine summoner, level, and rank data
     const combinedData = {
       gameName: summonerData.gameName,
       tagLine: summonerData.tagLine,
-      level: summonerData.summonerLevel, // Assuming summonerLevel is the correct field
+      level: levelData.summonerLevel,
+      rank: rankData,
     };
 
     console.log(combinedData); // Check the combined data

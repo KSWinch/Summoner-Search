@@ -50,6 +50,12 @@ function SummonerInfo() {
           <h2>
             Summoner's Name: {summonerData.gameName}#{summonerData.tagLine}
           </h2>
+          <h2>
+            Rank:{" "}
+            {summonerData.rank && summonerData.rank.length > 0
+              ? summonerData.rank[0].tier + " " + summonerData.rank[0].rank
+              : "Unranked"}
+          </h2>
         </div>
       )}
     </div>
