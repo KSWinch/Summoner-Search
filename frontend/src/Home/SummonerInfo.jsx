@@ -1,7 +1,19 @@
-// filepath: /c:/Users/Kyle/Desktop/CodeProjects/Summoner-Search/frontend/src/Home/SummonerInfo.jsx
 import React, { useState } from "react";
 import axios from "axios";
 import "./SummonerInfo.css";
+
+const rankIcons = {
+  IRON: "/src/assets/rank-icons/Rank=Iron.png",
+  BRONZE: "/src/assets/rank-icons/Rank=Bronze.png",
+  SILVER: "/src/assets/rank-icons/Rank=Silver.png",
+  GOLD: "/src/assets/rank-icons/Rank=Gold.png",
+  PLATINUM: "/src/assets/rank-icons/Rank=Platinum.png",
+  DIAMOND: "/src/assets/rank-icons/Rank=Diamond.png",
+  MASTER: "/src/assets/rank-icons/Rank=Master.png",
+  GRANDMASTER: "/src/assets/rank-icons/Rank=Grandmaster.png",
+  CHALLENGER: "/src/assets/rank-icons/Rank=Challenger.png",
+  EMERALD: "/src/assets/rank-icons/Rank=Emerald.png", // Add emerald rank icon
+};
 
 function SummonerInfo() {
   const [summonerInput, setSummonerInput] = useState(""); // Combined input
@@ -29,14 +41,48 @@ function SummonerInfo() {
     }
   };
 
+  // Sets class name depending on rank, Allowing for custom backgrounds
+  const getRankClass = (rank) => {
+    switch (rank) {
+      case "IRON":
+        return "rank-iron";
+      case "BRONZE":
+        return "rank-bronze";
+      case "SILVER":
+        return "rank-silver";
+      case "GOLD":
+        return "rank-gold";
+      case "PLATINUM":
+        return "rank-platinum";
+      case "DIAMOND":
+        return "rank-diamond";
+      case "MASTER":
+        return "rank-master";
+      case "GRANDMASTER":
+        return "rank-grandmaster";
+      case "CHALLENGER":
+        return "rank-challenger";
+      case "EMERALD":
+        return "rank-emerald";
+      default:
+        return "";
+    }
+  };
+
   return (
-    <div className="summoner-info">
+    <div
+      className={`summoner-info ${
+        summonerData && summonerData.rank && summonerData.rank.length > 0
+          ? getRankClass(summonerData.rank[0].tier)
+          : ""
+      }`}
+    >
       <h1>Summoner Search</h1>
       {/* Search Bar */}
       <div className="search-bar">
         <input
           type="text"
-          placeholder="Game Name#Tagline"
+          placeholder="Summoner Name#Tagline"
           value={summonerInput}
           onChange={(e) => setSummonerInput(e.target.value)} // Update the combined input state
         />
@@ -46,6 +92,11 @@ function SummonerInfo() {
       {/* Display Summoner Data */}
       {summonerData && (
         <div className="summoner-details">
+          <img
+            className="profile-icon"
+            src={summonerData.profileIconUrl}
+            alt="Profile Icon"
+          />
           <h2>Level: {summonerData.level}</h2>
           <h2>
             Summoner's Name: {summonerData.gameName}#{summonerData.tagLine}
@@ -56,6 +107,13 @@ function SummonerInfo() {
               ? summonerData.rank[0].tier + " " + summonerData.rank[0].rank
               : "Unranked"}
           </h2>
+          {summonerData.rank && summonerData.rank.length > 0 && (
+            <img
+              className="rank-icon"
+              src={rankIcons[summonerData.rank[0].tier]}
+              alt={`${summonerData.rank[0].tier} Icon`}
+            />
+          )}
         </div>
       )}
     </div>

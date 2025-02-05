@@ -52,12 +52,17 @@ app.get("/api/summoner/:gameName/:tagLine", async (req, res) => {
 
     const rankData = rankResponse.data;
 
-    // Combine summoner, level, and rank data
+    // Fetch profile icon URL using profileIconId
+    const profileIconId = levelData.profileIconId;
+    const profileIconUrl = `https://ddragon.leagueoflegends.com/cdn/15.3.1/img/profileicon/${profileIconId}.png`;
+
+    // Combine summoner, level, rank, and profile icon data
     const combinedData = {
       gameName: summonerData.gameName,
       tagLine: summonerData.tagLine,
       level: levelData.summonerLevel,
       rank: rankData,
+      profileIconUrl: profileIconUrl,
     };
 
     console.log(combinedData); // Check the combined data

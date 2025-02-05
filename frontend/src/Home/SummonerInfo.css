@@ -10,11 +10,7 @@ body {
   align-items: center;
   justify-content: flex-start;
   height: 100vh;
-  background: linear-gradient(
-    45deg,
-    /* Change the angle of the gradient */ #383bee,
-    #641ca7
-  );
+  background-color: #2e2e2e;
 }
 
 .search-bar {
@@ -41,7 +37,60 @@ body {
   text-align: center;
 }
 
-.summoner-details h2 {
-  font-size: 30px;
-  font-weight: bold;
+.summoner-details .profile-icon {
+  width: 85px; /* Set the width of the profile icon */
+  height: 85px; /* Set the height of the profile icon */
+  margin-top: 10px; /* Add some space above the profile icon */
+}
+
+.summoner-details .rank-icon {
+  width: 54px; /* Set the width of the rank icon */
+  height: 54px; /* Set the height of the rank icon */
+  margin-top: 10px; /* Add some space above the rank icon */
+}
+
+/* Custom backgrounds for rank */
+
+.rank-iron {
+  background: linear-gradient(45deg, #4e4e4e, #2e2e2e);
+}
+
+.rank-bronze {
+  background: linear-gradient(45deg, #cd7f32, #8c6239);
+}
+
+.rank-silver {
+  background: linear-gradient(45deg, #c0c0c0, #a9a9a9);
+}
+
+.rank-gold {
+  background: linear-gradient(45deg, #ffd700, #daa520);
+}
+
+.rank-platinum {
+  background: linear-gradient(45deg, #00bfff, #32cd32);
+}
+
+.rank-emerald {
+  background: linear-gradient(#50c878, #133824);
+}
+
+.rank-diamond {
+  background: linear-gradient(#1c90aa, #0a3770);
+}
+
+.rank-master {
+  background: linear-gradient(45deg, #ff00ff, #800080);
+}
+
+.rank-grandmaster {
+  background: linear-gradient(45deg, #ff4500, #8b0000);
+}
+
+.rank-challenger {
+  background: linear-gradient(
+    #00ffff,
+    #0000ff,
+    #a8990d
+  ); /* Three colors for the gradient */
 }
