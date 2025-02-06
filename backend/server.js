@@ -56,28 +56,56 @@ app.get("/api/summoner/:gameName/:tagLine", async (req, res) => {
     const profileIconId = levelData.profileIconId;
     const profileIconUrl = `https://ddragon.leagueoflegends.com/cdn/15.3.1/img/profileicon/${profileIconId}.png`;
 
+    // Fetch match history IDS using puuid
+    const matchResponse = await axios.get(
+      `https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${summonerData.puuid}/ids?start=0&count=5`,
+      {
+        headers: {
+          "X-Riot-Token": process.env.RIOT_API_KEY, // Riot API Key
+        },
+      }
+    );
+
+    const matchID = matchResponse.data;
+
+    const matchResponses = await Promise.all(
+      matchID.map((id) =>
+        axios.get(
+          `https://americas.api.riotgames.com/lol/match/v5/matches/${id}`,
+          {
+            headers: {
+              "X-Riot-Token": process.env.RIOT_API_KEY, // Riot API Key
+            },
+          }
+        )
+      )
+    );
+
+    const matchData = matchResponses.map((response) => response.data);
+
     // Combine summoner, level, rank, and profile icon data
     console.log("Summoner data:", summonerData);
     console.log("Rank data:", rankData);
+    console.log("Match history:", matchData);
 
     const formatRankData = (rankData) => {
       if (!rankData.length) {
-        return [];
+        return null;
       }
 
-      return rankData.map((entry) => {
-        return {
-          leagueId: entry.leagueId,
-          queueType: entry.queueType,
-          tier: entry.tier,
-          rank: entry.rank,
-          leaguePoints: entry.leaguePoints,
-          wins: entry.wins,
-          losses: entry.losses,
-          hotStreak: entry.hotStreak,
-          inactive: entry.inactive,
-        };
-      });
+      const entry = rankData[0]; // Assuming we only need the first entry for solo queue
+
+      return {
+        leagueId: entry.leagueId,
+        queueType: entry.queueType,
+        tier: entry.tier,
+        rank: entry.rank,
+        leaguePoints: entry.leaguePoints,
+        wins: entry.wins,
+        losses: entry.losses,
+        hotStreak: entry.hotStreak,
+        inactive: entry.inactive,
+      };
     };
 
     const competitiveRankData = {
@@ -95,6 +123,11 @@ app.get("/api/summoner/:gameName/:tagLine", async (req, res) => {
       level: levelData.summonerLevel,
       rank: rankData,
       profileIconUrl: profileIconUrl,
+      matchHistory: matchData.map((match) => ({
+        gameMode: match.info.gameMode,
+        gameDuration: match.info.gameDuration,
+        gameVersion: match.info.gameVersion,
+      })),
       ...competitiveRankData,
     };
 

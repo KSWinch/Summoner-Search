@@ -41,7 +41,6 @@ function SummonerInfo() {
     }
   };
 
-  // Sets class name depending on rank, Allowing for custom backgrounds
   const getRankClass = (rank) => {
     switch (rank) {
       case "IRON":
@@ -54,8 +53,6 @@ function SummonerInfo() {
         return "rank-gold";
       case "PLATINUM":
         return "rank-platinum";
-      case "EMERALD":
-        return "rank-emerald";
       case "DIAMOND":
         return "rank-diamond";
       case "MASTER":
@@ -64,6 +61,8 @@ function SummonerInfo() {
         return "rank-grandmaster";
       case "CHALLENGER":
         return "rank-challenger";
+      case "EMERALD":
+        return "rank-emerald";
       default:
         return "";
     }
@@ -99,7 +98,7 @@ function SummonerInfo() {
               alt="Profile Icon"
             />
             <h2>
-              {summonerData.gameName}#{summonerData.tagLine}
+              Summoner's Name: {summonerData.gameName}#{summonerData.tagLine}
             </h2>
           </div>
           <h2>Level: {summonerData.level}</h2>
@@ -116,40 +115,49 @@ function SummonerInfo() {
               alt={`${summonerData.rank[0].tier} Icon`}
             />
           )}
-
-          <h2>
-            <h2>Ranked Solo</h2>
-
-            {summonerData.solo && summonerData.solo.length > 0 ? (
-              <>
-                LP {summonerData.solo[0].leaguePoints}
-                <br /> W {summonerData.solo[0].wins} L{" "}
-                {summonerData.solo[0].losses}
-                <br />
-                Hot Streak: {summonerData.solo[0].hotStreak ? "Yes" : "No"}
-                <br />
-                Inactive: {summonerData.solo[0].inactive ? "Yes" : "No"}
-              </>
+          <h2>Ranked Solo</h2>
+          {summonerData.solo ? (
+            <>
+              LP {summonerData.solo.leaguePoints}
+              <br /> W {summonerData.solo.wins} L {summonerData.solo.losses}
+              <br />
+              Hot Streak: {summonerData.solo.hotStreak ? "Yes" : "No"}
+              <br />
+              Inactive: {summonerData.solo.inactive ? "Yes" : "No"}
+            </>
+          ) : (
+            ""
+          )}
+          <h2>Ranked Flex</h2>
+          {summonerData.flex ? (
+            <>
+              LP {summonerData.flex.leaguePoints}
+              <br /> W {summonerData.flex.wins} L {summonerData.flex.losses}
+              <br />
+              Hot Streak: {summonerData.flex.hotStreak ? "Yes" : "No"}
+              <br />
+              Inactive: {summonerData.flex.inactive ? "Yes" : "No"}
+            </>
+          ) : (
+            ""
+          )}
+          <h2>Match History</h2>
+          <div className="match-history">
+            {summonerData.matchHistory &&
+            summonerData.matchHistory.length > 0 ? (
+              summonerData.matchHistory.map((match, index) => (
+                <div key={index} className="match-item">
+                  Game Mode: {match.gameMode}
+                  <br />
+                  Game Duration: {match.gameDuration}
+                  <br />
+                  Game Version: {match.gameVersion}
+                </div>
+              ))
             ) : (
-              "Unranked"
+              <p>No match history available.</p>
             )}
-          </h2>
-          <h2>
-            <h2>Ranked Flex</h2>
-            {summonerData.flex && summonerData.flex.length > 0 ? (
-              <>
-                LP {summonerData.flex[0].leaguePoints}
-                <br /> W {summonerData.flex[0].wins} L{" "}
-                {summonerData.flex[0].losses}
-                <br />
-                Hot Streak: {summonerData.flex[0].hotStreak ? "Yes" : "No"}
-                <br />
-                Inactive: {summonerData.flex[0].inactive ? "Yes" : "No"}
-              </>
-            ) : (
-              "Unranked"
-            )}
-          </h2>
+          </div>
         </div>
       )}
     </div>

@@ -14,13 +14,14 @@ body {
   align-items: flex-start; /* Align items to the top left */
   justify-content: flex-start;
   width: 90%;
+  max-width: 600px;
   height: 90%;
-  height: auto;
   padding: 20px;
   border-radius: 15px;
   background-color: #3e3e3e;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   color: white;
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 .search-bar {
@@ -57,6 +58,19 @@ body {
   width: 54px; /* Set the width of the rank icon */
   height: 54px; /* Set the height of the rank icon */
   margin-top: 10px; /* Add some space above the rank icon */
+}
+
+.match-history {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.match-item {
+  margin-bottom: 15px; /* Add gap between each game */
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 10px;
+  background-color: #444;
 }
 
 /* Custom backgrounds for rank */
