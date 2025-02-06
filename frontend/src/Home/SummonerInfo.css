@@ -73,6 +73,22 @@ body {
   background-color: #444;
 }
 
+.match-win {
+  margin-bottom: 15px; /* Add gap between each game */
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 10px;
+  background-color: #29b134;
+}
+
+.match-loss {
+  margin-bottom: 15px; /* Add gap between each game */
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 10px;
+  background-color: #a73531;
+}
+
 /* Custom backgrounds for rank */
 
 .rank-iron {

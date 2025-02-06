@@ -117,6 +117,24 @@ app.get("/api/summoner/:gameName/:tagLine", async (req, res) => {
       ),
     };
 
+    const matchWinLoss = (match) => {
+      const puuid = summonerData.puuid;
+
+      const teamID = match.metadata.participants.indexOf(puuid) < 5 ? 100 : 200;
+
+      const teamOneWon = match.info.teams[0].win; // Checking if team 100 won the game
+
+      let userWon = false;
+      if (teamID === 100 && teamOneWon === true) {
+        userWon = true;
+      }
+
+      if (teamID === 200 && teamOneWon === false) {
+        userWon = true;
+      }
+      return userWon;
+    };
+
     const combinedData = {
       gameName: summonerData.gameName,
       tagLine: summonerData.tagLine,
@@ -125,8 +143,10 @@ app.get("/api/summoner/:gameName/:tagLine", async (req, res) => {
       profileIconUrl: profileIconUrl,
       matchHistory: matchData.map((match) => ({
         gameMode: match.info.gameMode,
-        gameDuration: match.info.gameDuration,
+        participants: match.metadata.participants,
+        gameDuration: match.info.gameDuration / 60,
         gameVersion: match.info.gameVersion,
+        win: matchWinLoss(match),
       })),
       ...competitiveRankData,
     };

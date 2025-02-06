@@ -146,12 +146,15 @@ function SummonerInfo() {
             {summonerData.matchHistory &&
             summonerData.matchHistory.length > 0 ? (
               summonerData.matchHistory.map((match, index) => (
-                <div key={index} className="match-item">
+                <div
+                  key={index}
+                  className={match.win ? "match-win" : "match-loss"}
+                >
                   Game Mode: {match.gameMode}
                   <br />
                   Game Duration: {match.gameDuration}
                   <br />
-                  Game Version: {match.gameVersion}
+                  {match.win === true}
                 </div>
               ))
             ) : (
