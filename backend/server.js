@@ -57,15 +57,47 @@ app.get("/api/summoner/:gameName/:tagLine", async (req, res) => {
     const profileIconUrl = `https://ddragon.leagueoflegends.com/cdn/15.3.1/img/profileicon/${profileIconId}.png`;
 
     // Combine summoner, level, rank, and profile icon data
+    console.log("Summoner data:", summonerData);
+    console.log("Rank data:", rankData);
+
+    const formatRankData = (rankData) => {
+      if (!rankData.length) {
+        return [];
+      }
+
+      return rankData.map((entry) => {
+        return {
+          leagueId: entry.leagueId,
+          queueType: entry.queueType,
+          tier: entry.tier,
+          rank: entry.rank,
+          leaguePoints: entry.leaguePoints,
+          wins: entry.wins,
+          losses: entry.losses,
+          hotStreak: entry.hotStreak,
+          inactive: entry.inactive,
+        };
+      });
+    };
+
+    const competitiveRankData = {
+      solo: formatRankData(
+        rankData.filter((entry) => entry.queueType === "RANKED_SOLO_5x5")
+      ),
+      flex: formatRankData(
+        rankData.filter((entry) => entry.queueType === "RANKED_FLEX_SR")
+      ),
+    };
+
     const combinedData = {
       gameName: summonerData.gameName,
       tagLine: summonerData.tagLine,
       level: levelData.summonerLevel,
       rank: rankData,
       profileIconUrl: profileIconUrl,
+      ...competitiveRankData,
     };
 
-    console.log(combinedData); // Check the combined data
     res.json(combinedData); // Send the combined data to frontend
   } catch (error) {
     console.error(

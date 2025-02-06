@@ -1,16 +1,26 @@
-/* General styling */
-
 body {
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #2e2e2e;
 }
+
 .summoner-info {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* Align items to the top left */
   justify-content: flex-start;
-  height: 100vh;
-  background-color: #2e2e2e;
+  width: 90%;
+  height: 90%;
+  height: auto;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #3e3e3e;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
 }
 
 .search-bar {
@@ -34,13 +44,13 @@ body {
 
 .summoner-details {
   margin-top: 20px;
-  text-align: center;
+  text-align: left; /* Align text to the left */
 }
 
 .summoner-details .profile-icon {
   width: 85px; /* Set the width of the profile icon */
   height: 85px; /* Set the height of the profile icon */
-  margin-top: 10px; /* Add some space above the profile icon */
+  margin-right: 10px; /* Add some space to the right of the profile icon */
 }
 
 .summoner-details .rank-icon {
@@ -89,6 +99,7 @@ body {
 
 .rank-challenger {
   background: linear-gradient(
+    45deg,
     #00ffff,
     #0000ff,
     #a8990d

@@ -54,6 +54,8 @@ function SummonerInfo() {
         return "rank-gold";
       case "PLATINUM":
         return "rank-platinum";
+      case "EMERALD":
+        return "rank-emerald";
       case "DIAMOND":
         return "rank-diamond";
       case "MASTER":
@@ -62,8 +64,6 @@ function SummonerInfo() {
         return "rank-grandmaster";
       case "CHALLENGER":
         return "rank-challenger";
-      case "EMERALD":
-        return "rank-emerald";
       default:
         return "";
     }
@@ -82,7 +82,7 @@ function SummonerInfo() {
       <div className="search-bar">
         <input
           type="text"
-          placeholder="Summoner Name#Tagline"
+          placeholder="Game Name#Tagline"
           value={summonerInput}
           onChange={(e) => setSummonerInput(e.target.value)} // Update the combined input state
         />
@@ -92,15 +92,17 @@ function SummonerInfo() {
       {/* Display Summoner Data */}
       {summonerData && (
         <div className="summoner-details">
-          <img
-            className="profile-icon"
-            src={summonerData.profileIconUrl}
-            alt="Profile Icon"
-          />
+          <div className="summoner-header">
+            <img
+              className="profile-icon"
+              src={summonerData.profileIconUrl}
+              alt="Profile Icon"
+            />
+            <h2>
+              {summonerData.gameName}#{summonerData.tagLine}
+            </h2>
+          </div>
           <h2>Level: {summonerData.level}</h2>
-          <h2>
-            Summoner's Name: {summonerData.gameName}#{summonerData.tagLine}
-          </h2>
           <h2>
             Rank:{" "}
             {summonerData.rank && summonerData.rank.length > 0
@@ -114,6 +116,40 @@ function SummonerInfo() {
               alt={`${summonerData.rank[0].tier} Icon`}
             />
           )}
+
+          <h2>
+            <h2>Ranked Solo</h2>
+
+            {summonerData.solo && summonerData.solo.length > 0 ? (
+              <>
+                LP {summonerData.solo[0].leaguePoints}
+                <br /> W {summonerData.solo[0].wins} L{" "}
+                {summonerData.solo[0].losses}
+                <br />
+                Hot Streak: {summonerData.solo[0].hotStreak ? "Yes" : "No"}
+                <br />
+                Inactive: {summonerData.solo[0].inactive ? "Yes" : "No"}
+              </>
+            ) : (
+              "Unranked"
+            )}
+          </h2>
+          <h2>
+            <h2>Ranked Flex</h2>
+            {summonerData.flex && summonerData.flex.length > 0 ? (
+              <>
+                LP {summonerData.flex[0].leaguePoints}
+                <br /> W {summonerData.flex[0].wins} L{" "}
+                {summonerData.flex[0].losses}
+                <br />
+                Hot Streak: {summonerData.flex[0].hotStreak ? "Yes" : "No"}
+                <br />
+                Inactive: {summonerData.flex[0].inactive ? "Yes" : "No"}
+              </>
+            ) : (
+              "Unranked"
+            )}
+          </h2>
         </div>
       )}
     </div>
