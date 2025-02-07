@@ -56,6 +56,10 @@ app.get("/api/summoner/:gameName/:tagLine", async (req, res) => {
     const profileIconId = levelData.profileIconId;
     const profileIconUrl = `https://ddragon.leagueoflegends.com/cdn/15.3.1/img/profileicon/${profileIconId}.png`;
 
+    const getChampionIconUrl = (championName) => {
+      return `https://ddragon.leagueoflegends.com/cdn/9.19.1/img/champion/${championName}.png`;
+    };
+
     // Fetch match history IDS using puuid
     const matchResponse = await axios.get(
       `https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${summonerData.puuid}/ids?start=0&count=5`,
@@ -87,6 +91,13 @@ app.get("/api/summoner/:gameName/:tagLine", async (req, res) => {
     console.log("Summoner data:", summonerData);
     console.log("Rank data:", rankData);
     console.log("Match history:", matchData);
+
+    // Function to format game duration in minutes and seconds
+    const formatGameDuration = (duration) => {
+      const minutes = Math.floor(duration / 60);
+      const seconds = Math.floor(duration % 60);
+      return `${minutes}m ${seconds}s`;
+    };
 
     const formatRankData = (rankData) => {
       if (!rankData.length) {
@@ -120,7 +131,7 @@ app.get("/api/summoner/:gameName/:tagLine", async (req, res) => {
     const matchWinLoss = (match) => {
       const puuid = summonerData.puuid;
 
-      const teamID = match.metadata.participants.indexOf(puuid) < 5 ? 100 : 200;
+      const teamID = match.metadata.participants.indexOf(puuid) < 5 ? 100 : 200; // Checking if user is on team 100 or 200 (0-4 is team 100, 5-9 is team 200)
 
       const teamOneWon = match.info.teams[0].win; // Checking if team 100 won the game
 
@@ -135,6 +146,15 @@ app.get("/api/summoner/:gameName/:tagLine", async (req, res) => {
       return userWon;
     };
 
+    const getChampionPlayed = (match) => {
+      // Define an arrow function named getChampionPlayed that takes a match object as its parameter
+      const participant = match.info.participants.find(
+        // Search through the participants array in match.info to find
+        (participant) => participant.puuid === summonerData.puuid // the participant whose puuid matches summonerData.puuid
+      ); // The find method returns the first matching participant object or undefined if no match is found
+      return participant ? participant.championName : null; // If a matching participant is found, return their championName; otherwise, return null
+    };
+
     const combinedData = {
       gameName: summonerData.gameName,
       tagLine: summonerData.tagLine,
@@ -144,9 +164,13 @@ app.get("/api/summoner/:gameName/:tagLine", async (req, res) => {
       matchHistory: matchData.map((match) => ({
         gameMode: match.info.gameMode,
         participants: match.metadata.participants,
-        gameDuration: match.info.gameDuration / 60,
+        gameDuration: formatGameDuration(match.info.gameDuration),
         gameVersion: match.info.gameVersion,
         win: matchWinLoss(match),
+        championPlayed: getChampionPlayed(match, summonerData.puuid),
+        championIconUrl: getChampionIconUrl(
+          getChampionPlayed(match, summonerData.puuid)
+        ),
       })),
       ...competitiveRankData,
     };

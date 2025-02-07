@@ -1,27 +1,87 @@
 body {
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
-  background-color: #2e2e2e;
+  background-color: rgb(7, 7, 32);
+  font-family: Arial, sans-serif; /* Set the default font */
+  color: white; /* Set the default text color */
 }
 
 .summoner-info {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align items to the top left */
-  justify-content: flex-start;
-  width: 90%;
-  max-width: 600px;
-  height: 90%;
-  padding: 20px;
-  border-radius: 15px;
-  background-color: #3e3e3e;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  width: 100%;
+  height: 100%;
+  background-color: rgb(7, 7, 32);
   color: white;
-  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 20px; /* Add some padding to the container */
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px; /* Ensure some space from the top */
+  width: 100%; /* Ensure the search bar takes up the full width */
+}
+
+.search-bar-container {
+  display: flex;
+  justify-content: center; /* Center the search bar */
+  width: 100%;
+}
+
+.summoner-info-box {
+  display: flex;
+  align-items: center; /* Center items vertically */
+  gap: 10px; /* Add some space between the icon and the name */
+  align-self: flex-start; /* Move the info box to the left */
+  margin-left: 15%; /* Add some margin to the left if needed */
+}
+
+.summoner-details .profile-icon {
+  width: 85px; /* Set the width of the profile icon */
+  height: 85px; /* Set the height of the profile icon */
+  margin-right: 10px; /* Add some space to the right of the profile icon */
+}
+
+.summoner-details .rank-icon {
+  width: 54px; /* Set the width of the rank icon */
+  height: 54px; /* Set the height of the rank icon */
+  margin-top: 10px; /* Add some space above the rank icon */
+}
+
+.summoner-info-box h2 {
+  margin: 0; /* Remove default margin */
+  font-size: 24px; /* Set a specific font size for the name */
+}
+
+.summoner-info-box h3 {
+  margin: 0; /* Remove default margin */
+  font-size: 18px; /* Set a specific font size for the level */
+  padding-left: 4px;
+}
+
+.match-history {
+  margin-top: 20px;
+  width: 25%;
+  justify-content: flex-end;
+}
+
+.ranked-info {
+  display: flex;
+  justify-content: space-between; /* Space out the left and right sections */
+  align-items: center; /* Center items vertically */
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 20px;
+  width: 25%; /* Adjust width as needed */
+  gap: 10px; /* Add some space between the icon and the name */
+  align-self: flex-start; /* Move the info box to the left */
+  margin-left: 15%;
 }
 
 .search-bar {
@@ -43,28 +103,6 @@ body {
   cursor: pointer;
 }
 
-.summoner-details {
-  margin-top: 20px;
-  text-align: left; /* Align text to the left */
-}
-
-.summoner-details .profile-icon {
-  width: 85px; /* Set the width of the profile icon */
-  height: 85px; /* Set the height of the profile icon */
-  margin-right: 10px; /* Add some space to the right of the profile icon */
-}
-
-.summoner-details .rank-icon {
-  width: 54px; /* Set the width of the rank icon */
-  height: 54px; /* Set the height of the rank icon */
-  margin-top: 10px; /* Add some space above the rank icon */
-}
-
-.match-history {
-  margin-top: 20px;
-  width: 100%;
-}
-
 .match-item {
   margin-bottom: 15px; /* Add gap between each game */
   padding: 10px;
@@ -74,64 +112,82 @@ body {
 }
 
 .match-win {
-  margin-bottom: 15px; /* Add gap between each game */
+  background-color: rgba(0, 140, 255, 0.2); /* blue with 20% opacity */
+  border: 1px solid rgba(0, 132, 255, 0.5); /* blue border with 50% opacity */
   padding: 10px;
-  border: 1px solid #555;
   border-radius: 10px;
-  background-color: #29b134;
+  margin-bottom: 10px;
 }
 
 .match-loss {
-  margin-bottom: 15px; /* Add gap between each game */
+  background-color: rgba(255, 0, 0, 0.2); /* Red with 20% opacity */
+  border: 1px solid rgba(214, 3, 3, 0.5); /* Red border with 50% opacity */
   padding: 10px;
-  border: 1px solid #555;
   border-radius: 10px;
-  background-color: #a73531;
+  margin-bottom: 10px;
+}
+
+.champion-icon {
+  width: 50px; /* Set the width of the champion icon */
+  height: 50px; /* Set the height of the champion icon */
+  margin-top: 10px; /* Add some space above the champion icon */
 }
 
 /* Custom backgrounds for rank */
 
 .rank-iron {
-  background: linear-gradient(45deg, #4e4e4e, #2e2e2e);
+  background-color: rgba(78, 78, 78, 0.2); /* Gray with 20% opacity */
+  border: 1px solid rgba(46, 46, 46, 0.5); /* Darker gray border with 50% opacity */
 }
 
 .rank-bronze {
-  background: linear-gradient(45deg, #cd7f32, #8c6239);
+  background-color: rgba(205, 127, 50, 0.2); /* Bronze with 20% opacity */
+  border: 1px solid rgba(140, 98, 57, 0.5); /* Darker bronze border with 50% opacity */
 }
 
 .rank-silver {
-  background: linear-gradient(45deg, #c0c0c0, #a9a9a9);
+  background-color: rgba(192, 192, 192, 0.2); /* Silver with 20% opacity */
+  border: 1px solid rgba(169, 169, 169, 0.5); /* Darker silver border with 50% opacity */
 }
 
 .rank-gold {
-  background: linear-gradient(45deg, #ffd700, #daa520);
+  background-color: rgba(255, 215, 0, 0.2); /* Gold with 20% opacity */
+  border: 1px solid rgba(218, 165, 32, 0.5); /* Darker gold border with 50% opacity */
 }
 
 .rank-platinum {
-  background: linear-gradient(45deg, #00bfff, #32cd32);
+  background-color: rgba(0, 191, 255, 0.2); /* Platinum with 20% opacity */
+  border: 1px solid rgba(50, 205, 50, 0.5); /* Darker platinum border with 50% opacity */
 }
 
 .rank-emerald {
-  background: linear-gradient(#50c878, #133824);
+  background-color: rgba(0, 182, 61, 0.2); /* Emerald with 20% opacity */
+  border: 1px solid rgba(6, 116, 59, 0.5); /* Darker emerald border with 50% opacity */
 }
 
 .rank-diamond {
-  background: linear-gradient(#1c90aa, #0a3770);
+  background-color: rgba(28, 144, 170, 0.2); /* Diamond with 20% opacity */
+  border: 1px solid rgba(10, 55, 112, 0.5); /* Darker diamond border with 50% opacity */
 }
 
 .rank-master {
-  background: linear-gradient(45deg, #ff00ff, #800080);
+  background-color: rgba(255, 0, 255, 0.2); /* Master with 20% opacity */
+  border: 1px solid rgba(128, 0, 128, 0.5); /* Darker master border with 50% opacity */
 }
 
 .rank-grandmaster {
-  background: linear-gradient(45deg, #ff4500, #8b0000);
+  background-color: rgba(255, 69, 0, 0.2); /* Grandmaster with 20% opacity */
+  border: 1px solid rgba(139, 0, 0, 0.5); /* Darker grandmaster border with 50% opacity */
 }
 
 .rank-challenger {
-  background: linear-gradient(
-    45deg,
-    #00ffff,
-    #0000ff,
-    #a8990d
-  ); /* Three colors for the gradient */
+  background-color: rgba(0, 255, 255, 0.2); /* Challenger with 20% opacity */
+  border: 1px solid rgba(0, 0, 255, 0.5); /* Darker challenger border with 50% opacity */
+}
+
+.rank-and-match-container {
+  display: flex;
+  align-items: flex-start; /* Align items to the top */
+  gap: 20px; /* Add some space between the ranked info and match history */
+  width: 100%;
 }
