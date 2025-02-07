@@ -70,6 +70,9 @@ body {
 .match-history {
   margin-top: 20px;
   width: 25%;
+  background-color: rgba(17, 17, 42);
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .ranked-info {
@@ -121,7 +124,7 @@ body {
 }
 
 .match-win {
-  background-color: rgba(0, 140, 255, 0.2); /* blue with 20% opacity */
+  background-color: #008cff33; /* blue with 20% opacity */
   border: 1px solid rgba(0, 132, 255, 0.5); /* blue border with 50% opacity */
   padding: 10px;
   border-radius: 10px;
