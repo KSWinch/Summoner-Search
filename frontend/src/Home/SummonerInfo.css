@@ -36,10 +36,12 @@ body {
 
 .summoner-info-box {
   display: flex;
+  justify-content: center;
   align-items: center; /* Center items vertically */
   gap: 10px; /* Add some space between the icon and the name */
   align-self: flex-start; /* Move the info box to the left */
-  margin-left: 15%; /* Add some margin to the left if needed */
+  margin-right: 18%;
+  padding-bottom: 45px;
 }
 
 .summoner-details .profile-icon {
@@ -68,7 +70,6 @@ body {
 .match-history {
   margin-top: 20px;
   width: 25%;
-  justify-content: flex-end;
 }
 
 .ranked-info {
@@ -78,10 +79,18 @@ body {
   padding: 10px;
   border-radius: 10px;
   margin-top: 20px;
-  width: 25%; /* Adjust width as needed */
+  width: auto; /* Adjust width as needed */
   gap: 10px; /* Add some space between the icon and the name */
   align-self: flex-start; /* Move the info box to the left */
   margin-left: 15%;
+}
+
+.rank-and-match-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Align items to the top */
+  gap: 20px; /* Add some space between the ranked info and match history */
+  width: 100%;
 }
 
 .search-bar {

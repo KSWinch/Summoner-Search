@@ -103,62 +103,69 @@ function SummonerInfo() {
             </h1>
           </div>
 
-          <div
-            className={`ranked-info ${
-              summonerData.rank && summonerData.rank.length > 0
-                ? getRankClass(summonerData.rank[0].tier)
-                : ""
-            }`}
-          >
-            <h3>
-              {/*Rank*/}{" "}
-              {summonerData.rank && summonerData.rank.length > 0
-                ? summonerData.rank[0].tier + " " + summonerData.rank[0].rank
-                : "Unranked"}
-            </h3>
-            {summonerData.rank && summonerData.rank.length > 0 && (
-              <img
-                className="rank-icon"
-                src={rankIcons[summonerData.rank[0].tier]}
-                alt={`${summonerData.rank[0].tier} Icon`}
-              />
-            )}
-            <h3>Ranked Solo</h3>
-            {summonerData.solo ? (
-              <>
-                LP {summonerData.solo.leaguePoints}
-                <br /> W {summonerData.solo.wins} L {summonerData.solo.losses}
-                <br />
-                Hot Streak: {summonerData.solo.hotStreak ? "Yes" : "No"}
-                <br />
-                Inactive: {summonerData.solo.inactive ? "Yes" : "No"}
-              </>
-            ) : (
-              ""
-            )}
-          </div>
-          <div
-            className={`ranked-info ${
-              summonerData.rank && summonerData.rank.length > 0
-                ? getRankClass(summonerData.rank[0].tier)
-                : ""
-            }`}
-          >
-            <h3>Ranked Flex</h3>
-            {summonerData.flex ? (
-              <>
-                LP {summonerData.flex.leaguePoints}
-                <br /> W {summonerData.flex.wins} L {summonerData.flex.losses}
-                <br />
-                Hot Streak: {summonerData.flex.hotStreak ? "Yes" : "No"}
-                <br />
-                Inactive: {summonerData.flex.inactive ? "Yes" : "No"}
-              </>
-            ) : (
-              ""
-            )}
-          </div>
-          <div className="match-container">
+          <div className="rank-and-match-container">
+            <div className="ranked-info-container">
+              <div
+                className={`ranked-info ${
+                  summonerData.rank && summonerData.rank.length > 0
+                    ? getRankClass(summonerData.rank[0].tier)
+                    : ""
+                }`}
+              >
+                <h3>
+                  {summonerData.rank && summonerData.rank.length > 0
+                    ? summonerData.rank[0].tier +
+                      " " +
+                      summonerData.rank[0].rank
+                    : "Unranked"}
+                </h3>
+                {summonerData.rank && summonerData.rank.length > 0 && (
+                  <img
+                    className="rank-icon"
+                    src={rankIcons[summonerData.rank[0].tier]}
+                    alt={`${summonerData.rank[0].tier} Icon`}
+                  />
+                )}
+                <h3>Ranked Solo</h3>
+                {summonerData.solo ? (
+                  <>
+                    LP {summonerData.solo.leaguePoints}
+                    <br /> W {summonerData.solo.wins} L{" "}
+                    {summonerData.solo.losses}
+                    <br />
+                    Hot Streak: {summonerData.solo.hotStreak ? "Yes" : "No"}
+                    <br />
+                    Inactive: {summonerData.solo.inactive ? "Yes" : "No"}
+                  </>
+                ) : (
+                  ""
+                )}
+              </div>
+
+              <div
+                className={`ranked-info ${
+                  summonerData.rank && summonerData.rank.length > 0
+                    ? getRankClass(summonerData.rank[0].tier)
+                    : ""
+                }`}
+              >
+                <h3>Ranked Flex</h3>
+                {summonerData.flex ? (
+                  <>
+                    LP {summonerData.flex.leaguePoints}
+                    <br /> W {summonerData.flex.wins} L{" "}
+                    {summonerData.flex.losses}
+                    <br />
+                    Hot Streak: {summonerData.flex.hotStreak ? "Yes" : "No"}
+                    <br />
+                    Inactive: {summonerData.flex.inactive ? "Yes" : "No"}
+                  </>
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
+
             <div className="match-history">
               <h2>Match History</h2>
               {summonerData.matchHistory &&
