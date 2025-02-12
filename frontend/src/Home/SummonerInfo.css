@@ -70,9 +70,31 @@ body {
 .match-history {
   margin-top: 20px;
   width: 25%;
-  background-color: rgba(17, 17, 42);
+  background-color: #11112a;
   border-radius: 10px;
   padding: 10px;
+}
+
+.rank-and-match-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  align-items: center; /* Align items to the top */
+  gap: 20px; /* Add some space between the ranked info and match history */
+  width: 25%; /* Add some space between the ranked info and match history */
+}
+
+.ranked-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Add some space between the ranked info boxes */
+}
+
+.ranked-info-box {
+  background-color: #11112a; /* Dark background with 80% opacity */
+  border-radius: 10px; /* Add rounded edges */
+  padding: 10px; /* Add some padding inside the container */
+  margin-top: 20px;
 }
 
 .ranked-info {
@@ -81,19 +103,9 @@ body {
   align-items: center; /* Center items vertically */
   padding: 10px;
   border-radius: 10px;
-  margin-top: 20px;
   width: auto; /* Adjust width as needed */
   gap: 10px; /* Add some space between the icon and the name */
   align-self: flex-start; /* Move the info box to the left */
-  margin-left: 15%;
-}
-
-.rank-and-match-container {
-  display: flex;
-  justify-content: center;
-  align-items: center; /* Align items to the top */
-  gap: 20px; /* Add some space between the ranked info and match history */
-  width: 100%;
 }
 
 .search-bar {
