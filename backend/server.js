@@ -57,7 +57,7 @@ app.get("/api/summoner/:gameName/:tagLine", async (req, res) => {
     const profileIconUrl = `https://ddragon.leagueoflegends.com/cdn/15.3.1/img/profileicon/${profileIconId}.png`;
 
     const getChampionIconUrl = (championName) => {
-      return `https://ddragon.leagueoflegends.com/cdn/9.19.1/img/champion/${championName}.png`;
+      return `https://ddragon.leagueoflegends.com/cdn/15.3.1/img/champion/${championName}.png`;
     };
 
     // Fetch match history IDS using puuid

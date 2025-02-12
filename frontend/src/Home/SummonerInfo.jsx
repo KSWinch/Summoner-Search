@@ -96,7 +96,7 @@ function SummonerInfo() {
             <div
               className="splash-art-background"
               style={{
-                backgroundImage: `url(${summonerData.topChampionMastery.splashArtUrl})`,
+                backgroundImage: `radial-gradient(circle, rgba(0, 0, 0, 0.7) 30%, rgba(0, 0, 0, 0.87) 40%, rgba(7, 7, 32, 1) 70%), url(${summonerData.topChampionMastery.splashArtUrl})`,
               }}
             ></div>
           )}

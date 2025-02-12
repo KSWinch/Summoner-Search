@@ -2,11 +2,12 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  background-color: rgb(7, 7, 32);
+  background-color: #070720;
   font-family: Arial, sans-serif; /* Set the default font */
   color: white; /* Set the default text color */
   z-index: 4;
 }
+
 .search-bar {
   display: flex;
   flex-direction: row;
@@ -44,27 +45,21 @@ body {
   padding-bottom: 45px;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  background-color: rgb(7, 7, 32);
-  font-family: Arial, sans-serif;
-  color: white;
-  position: relative; /* Add this to establish stacking context for the body */
-  z-index: 0;
-}
-
 .splash-art-background {
   position: absolute; /* Take it out of the document flow */
-  top: 0;
-  left: 0;
-  width: 25%;
-  height: 25%; /* Full screen */
+  margin-left: 20%;
+  width: 65%;
+  height: 18.3%; /* Full screen */
   background-size: cover;
-  background-position: center;
-  filter: brightness(0.2);
+  background-position: 10% 5%;
   z-index: -1; /* This ensures the splash art stays behind all other elements */
+  /* Apply a radial gradient to the background */
+  background-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0) 50%,
+    /* Transparent in the center */ rgba(0, 0, 0, 0.5) 90%,
+    /* Fade to dark around the edges */ rgba(7, 7, 32, 1) 100%
+  );
 }
 
 .summoner-details {
