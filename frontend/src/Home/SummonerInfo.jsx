@@ -91,6 +91,16 @@ function SummonerInfo() {
       {/* Display Summoner Data */}
       {summonerData && (
         <div className="summoner-details">
+          {/* Background Splash Art */}
+          {summonerData.topChampionMastery.splashArtUrl && (
+            <div
+              className="splash-art-background"
+              style={{
+                backgroundImage: `url(${summonerData.topChampionMastery.splashArtUrl})`,
+              }}
+            ></div>
+          )}
+
           <div className="summoner-info-box">
             <img
               className="profile-icon"

@@ -5,6 +5,16 @@ body {
   background-color: rgb(7, 7, 32);
   font-family: Arial, sans-serif; /* Set the default font */
   color: white; /* Set the default text color */
+  z-index: 4;
+}
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px; /* Ensure some space from the top */
+  width: 100%; /* Ensure the search bar takes up the full width */
 }
 
 .summoner-info {
@@ -16,16 +26,6 @@ body {
   background-color: rgb(7, 7, 32);
   color: white;
   padding: 20px; /* Add some padding to the container */
-}
-
-.search-bar {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  margin-top: 20px; /* Ensure some space from the top */
-  width: 100%; /* Ensure the search bar takes up the full width */
 }
 
 .search-bar-container {
@@ -42,6 +42,41 @@ body {
   align-self: flex-start; /* Move the info box to the left */
   margin-right: 18%;
   padding-bottom: 45px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: rgb(7, 7, 32);
+  font-family: Arial, sans-serif;
+  color: white;
+  position: relative; /* Add this to establish stacking context for the body */
+  z-index: 0;
+}
+
+.splash-art-background {
+  position: absolute; /* Take it out of the document flow */
+  top: 0;
+  left: 0;
+  width: 25%;
+  height: 25%; /* Full screen */
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.2);
+  z-index: -1; /* This ensures the splash art stays behind all other elements */
+}
+
+.summoner-details {
+  position: relative; /* Ensures it is above the splash art background */
+  z-index: 2; /* Stacks above the splash art */
+  color: white;
+  text-align: center;
+}
+
+.summoner-info-box {
+  position: relative; /* Ensures it stays above the splash art background */
+  z-index: 3; /* Higher than summoner details */
 }
 
 .summoner-details .profile-icon {

@@ -154,6 +154,39 @@ app.get("/api/summoner/:gameName/:tagLine", async (req, res) => {
       ); // The find method returns the first matching participant object or undefined if no match is found
       return participant ? participant.championName : null; // If a matching participant is found, return their championName; otherwise, return null
     };
+    // Fetch champion mastery data
+    const masteryResponse = await axios.get(
+      `https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${summonerData.puuid}/top?count=1`,
+      {
+        headers: {
+          "X-Riot-Token": process.env.RIOT_API_KEY,
+        },
+      }
+    );
+
+    const topMastery = masteryResponse.data[0];
+    const championId = topMastery ? topMastery.championId : null;
+
+    // Fetch champion data to get the name
+    const championDataResponse = await axios.get(
+      `https://ddragon.leagueoflegends.com/cdn/15.3.1/data/en_US/champion.json`
+    );
+
+    const championData = championDataResponse.data.data;
+
+    let topChampionName = null;
+    if (championId) {
+      for (const champion in championData) {
+        if (championData[champion].key === String(championId)) {
+          topChampionName = championData[champion].id; // Champion name for splash art
+          break;
+        }
+      }
+    }
+
+    const splashArtUrl = topChampionName
+      ? `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${topChampionName}_0.jpg`
+      : null;
 
     const combinedData = {
       gameName: summonerData.gameName,
@@ -173,8 +206,26 @@ app.get("/api/summoner/:gameName/:tagLine", async (req, res) => {
         ),
       })),
       ...competitiveRankData,
+      topChampionMastery: {
+        championId: championId,
+        championName: topChampionName,
+        masteryLevel: topMastery ? topMastery.championLevel : null,
+        masteryPoints: topMastery ? topMastery.championPoints : null,
+        splashArtUrl: splashArtUrl,
+        championStats: topChampionName
+          ? {
+              attack: championData[topChampionName]?.info.attack,
+              defense: championData[topChampionName]?.info.defense,
+              magic: championData[topChampionName]?.info.magic,
+              difficulty: championData[topChampionName]?.info.difficulty,
+              tags: championData[topChampionName]?.tags,
+              stats: championData[topChampionName]?.stats,
+            }
+          : null,
+      },
     };
 
+    console.log(topChampionName);
     res.json(combinedData); // Send the combined data to frontend
   } catch (error) {
     console.error(
